@@ -6,10 +6,11 @@
 #include <stdlib.h>
 #include <time.h>
 
+#include "sort.h"
+
 void show_menu();
 void randomize_array(int arr[], int length);
 void print_array(int arr[], int length);
-void bubble_sort(int arr[], int length);
 
 int main()
 {
@@ -21,7 +22,7 @@ int main()
 		show_menu();
 		int command;
 		scanf(" %d", &command);
-		
+
 		randomize_array(arr, length);
 		print_array(arr, length);
 		putchar('\n');
@@ -29,6 +30,12 @@ int main()
 		switch (command)
 		{
 		case 1:
+			printf("before sort: ");
+			print_array(arr, length);
+
+			printf("after  sort: ");
+			bubble_sort(arr, length);
+			print_array(arr, length);
 			break;
 		case 9:
 			return 0;
@@ -42,38 +49,40 @@ int main()
 void show_menu()
 {
 	/*
-	  ****************************************
-   ****   여러가지 정렬 프로그램 구현   *****
-   ****                                 *****
-   ****   1. bubble sort                 *****
-   ****   2. bubble sort with flag       *****
-   *****  3. insertion sort               *****
-   *****  4. selection sort               *****
-   *****  5. quick sort                  *****
-   *****  6. merge sort(반복문 사용)     *****
-   *****  7. heap sort                   *****
-   *****  8. radix sort                  *****
-   *****  9. quit                        *****
-   ****************************************
+	 * ****************************************
+	 * ****   여러가지 정렬 프로그램 구현   *****
+	 * ****                                 *****
+	 * ****   1. bubble sort                 *****
+	 * ****   2. bubble sort with flag       *****
+	 * *****  3. insertion sort               *****
+	 * *****  4. selection sort               *****
+	 * *****  5. quick sort                  *****
+	 * *****  6. merge sort(반복문 사용)     *****
+	 * *****  7. heap sort                   *****
+	 * *****  8. radix sort                  *****
+	 * *****  9. quit                        *****
+	 * ****************************************
 	*/
 
 	const char menus[][32] =
-	{
-		"bubble sort",
-		"bubble sort with flag",
-		"insertion sort",
-		"selection sort",
-		"quick sort",
-		"merge sort(iterative)",
-		"heap sort",
-		"radix sort",
-		"quit"
-	};
+		{
+			"bubble sort",
+			"bubble sort with flag",
+			"insertion sort",
+			"selection sort",
+			"quick sort",
+			"merge sort(iterative)",
+			"heap sort",
+			"radix sort",
+			"quit"
+		};
 
 	for (int i = 0; i < sizeof(menus) / sizeof(menus[0]); ++i)
 	{
 		printf("***** %d. %-30s *****\n", i + 1, menus[i]);
 	}
+
+	printf("select ? ");
 }
 
 void randomize_array(int arr[], int length)
@@ -91,8 +100,6 @@ void print_array(int arr[], int length)
 	{
 		printf("%2d ", arr[i]);
 	}
+	putchar('\n');
 }
 
-void bubble_sort(int arr[], int length)
-{
-}
