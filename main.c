@@ -8,34 +8,41 @@
 
 #include "sort.h"
 
-void show_menu();
+#define LEN (20)
+
+void print_menu();
 void randomize_array(int arr[], int length);
 void print_array(int arr[], int length);
 
 int main()
 {
-	int arr[20];
-	const int length = sizeof(arr) / sizeof(arr[0]);
+	int arr[LEN];
 
 	while (1)
 	{
-		show_menu();
+		print_menu();
 		int command;
 		scanf(" %d", &command);
 
-		randomize_array(arr, length);
-		print_array(arr, length);
-		putchar('\n');
+		randomize_array(arr, LEN);
 
 		switch (command)
 		{
 		case 1:
 			printf("before sort: ");
-			print_array(arr, length);
+			print_array(arr, LEN);
 
 			printf("after  sort: ");
-			bubble_sort(arr, length);
-			print_array(arr, length);
+			bubble_sort(arr, LEN);
+			print_array(arr, LEN);
+			break;
+		case 4:
+			printf("before sort: ");
+			print_array(arr, LEN);
+
+			printf("after  sort: ");
+			selection_sort(arr, LEN);
+			print_array(arr, LEN);
 			break;
 		case 9:
 			return 0;
@@ -46,7 +53,7 @@ int main()
 	}
 }
 
-void show_menu()
+void print_menu()
 {
 	/*
 	 * ****************************************
@@ -65,30 +72,55 @@ void show_menu()
 	*/
 
 	const char menus[][32] =
-		{
-			"bubble sort",
-			"bubble sort with flag",
-			"insertion sort",
-			"selection sort",
-			"quick sort",
-			"merge sort(iterative)",
-			"heap sort",
-			"radix sort",
-			"quit"
-		};
-
-	for (int i = 0; i < sizeof(menus) / sizeof(menus[0]); ++i)
 	{
-		printf("***** %d. %-30s *****\n", i + 1, menus[i]);
+		"여러가지 정렬 프로그램 구현",
+		"",
+		"bubble sort",
+		"bubble sort with flag",
+		"insertion sort",
+		"selection sort",
+		"quick sort",
+		"merge sort(iterative)",
+		"heap sort",
+		"radix sort",
+		"quit"
+	};
+
+	int i;
+
+	for (i = 0; i < 45; ++i)
+	{
+		putchar('*');
 	}
+	putchar('\n');
+
+	for (i = 0; i < sizeof(menus) / sizeof(menus[0]); ++i)
+	{
+		if (i < 2)
+		{
+			printf("***** %-33s *****\n", menus[i]);
+		}
+		else
+		{
+			printf("***** %d. %-30s *****\n", i - 1, menus[i]);
+		}
+	}
+
+	for (i = 0; i < 45; ++i)
+	{
+		putchar('*');
+	}
+	putchar('\n');
 
 	printf("select ? ");
 }
 
 void randomize_array(int arr[], int length)
 {
+	int i;
+
 	srand(time(NULL));
-	for (int i = 0; i < length; ++i)
+	for (i = 0; i < length; ++i)
 	{
 		arr[i] = rand() % 100;
 	}
@@ -96,7 +128,9 @@ void randomize_array(int arr[], int length)
 
 void print_array(int arr[], int length)
 {
-	for (int i = 0; i < length; ++i)
+	int i;
+
+	for (i = 0; i < length; ++i)
 	{
 		printf("%2d ", arr[i]);
 	}
