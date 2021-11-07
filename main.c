@@ -2,6 +2,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #endif
 
+#include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -11,12 +12,12 @@
 #define LEN (20)
 
 void print_menu();
-void randomize_array(int arr[], int length);
-void print_array(int arr[], int length);
+element *create_random_array_malloc(int size);
+void print_array(element arr[], int from, int to);
 
 int main()
 {
-	int arr[LEN];
+	element *arr;
 
 	while (1)
 	{
@@ -24,28 +25,55 @@ int main()
 		int command;
 		scanf(" %d", &command);
 
-		randomize_array(arr, LEN);
-
 		switch (command)
 		{
-		case 1:
+		case 1: /* bubble sort */
+			arr = create_random_array_malloc(LEN);
 			printf("before sort: ");
-			print_array(arr, LEN);
+			print_array(arr, 0, LEN - 1);
 
 			printf("after  sort: ");
 			bubble_sort(arr, LEN);
-			print_array(arr, LEN);
+			print_array(arr, 0, LEN - 1);
+			free(arr);
 			break;
-		case 4:
+
+		case 3: /* insertion sort */
+			arr = create_random_array_malloc(LEN + 1);
 			printf("before sort: ");
-			print_array(arr, LEN);
+			print_array(arr, 1, LEN);
+
+			printf("after  sort: ");
+			insertion_sort(arr, LEN);
+			print_array(arr, 1, LEN);
+			free(arr);
+			break;
+
+		case 4: /* selection sort */
+			arr = create_random_array_malloc(LEN);
+			printf("before sort: ");
+			print_array(arr, 0, LEN - 1);
 
 			printf("after  sort: ");
 			selection_sort(arr, LEN);
-			print_array(arr, LEN);
+			print_array(arr, 0, LEN - 1);
+			free(arr);
 			break;
+
+		case 5: /* quick sort */
+			arr = create_random_array_malloc(LEN);
+			printf("before sort: ");
+			print_array(arr, 0, LEN - 1);
+
+			printf("after  sort: ");
+			quick_sort(arr, 0, LEN - 1);
+			print_array(arr, 0, LEN - 1);
+			free(arr);
+			break;
+
 		case 9:
 			return 0;
+
 		default:
 			printf("잘못된 입력입니다.\n");
 			break;
@@ -115,24 +143,30 @@ void print_menu()
 	printf("select ? ");
 }
 
-void randomize_array(int arr[], int length)
+element *create_random_array_malloc(int size)
 {
+	const int THRESHOLD = 100;
+
 	int i;
+	element *arr = malloc(sizeof(element) * size);
+	assert(arr != NULL);
 
 	srand(time(NULL));
-	for (i = 0; i < length; ++i)
+	for (i = 0; i < size; ++i)
 	{
-		arr[i] = rand() % 100;
+		arr[i].key = rand() % THRESHOLD;
 	}
+
+	return arr;
 }
 
-void print_array(int arr[], int length)
+void print_array(element arr[], int from, int to)
 {
 	int i;
 
-	for (i = 0; i < length; ++i)
+	for (i = from; i <= to; ++i)
 	{
-		printf("%2d ", arr[i]);
+		printf("%2d ", arr[i].key);
 	}
 	putchar('\n');
 }
