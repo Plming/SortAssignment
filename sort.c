@@ -179,3 +179,47 @@ void mergeSort(element a[], int n)
 
 	free(extra);
 }
+
+void adjust(element a[], int root, int n)
+{
+	element temp = a[root];
+	const int rootKey = a[root].key;
+
+	int child = 2 * root;
+	while (child <= n)
+	{
+		if (child < n && a[child].key < a[child + 1].key)
+		{
+			++child;
+		}
+
+		if (rootKey > a[child].key)
+		{
+			break;
+		}
+		else
+		{
+			a[child / 2] = a[child];
+			child *= 2;
+		}
+	}
+
+	a[child / 2] = temp;
+}
+
+void heapSort(element a[], int n)
+{
+	int i, j;
+	element temp;
+
+	for (i = n / 2; i > 0; --i)
+	{
+		adjust(a, i, n);
+	}
+
+	for (i = n - 1; i > 0; --i)
+	{
+		SWAP(a[1], a[i + 1], temp);
+		adjust(a, 1, i);
+	}
+}

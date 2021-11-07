@@ -19,4 +19,7 @@ void merge(element initList[], element mergedList[], int i, int m, int n);
 void mergePass(element initList[], element mergedList[], int n, int s);
 void mergeSort(element a[], int n);
 
+void adjust(element a[], int root, int n);
+void heapSort(element a[], int n);
+
 #endif //_SORT_H_

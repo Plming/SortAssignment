@@ -83,6 +83,17 @@ int main()
 			free(arr);
 			break;
 
+		case 7: /* heap sort */
+			arr = createRandomArrayMalloc(LEN + 1);
+			printf("before sort: ");
+			printArray(arr, 1, LEN);
+
+			printf("after  sort: ");
+			heapSort(arr, LEN);
+			printArray(arr, 1, LEN);
+			free(arr);
+			break;
+
 		case 9:
 			return 0;
 
