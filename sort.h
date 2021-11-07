@@ -6,13 +6,17 @@ typedef struct
 	int key;
 } element;
 
-void bubble_sort(element arr[], int length);
+void bubbleSort(element arr[], int length);
 
 void insert(element e, element a[], int i);
-void insertion_sort(element a[], int n);
+void insertionSort(element a[], int n);
 
-void selection_sort(element arr[], int length);
+void selectionSort(element arr[], int length);
 
-void quick_sort(element a[], int left, int right);
+void quickSort(element a[], int left, int right);
+
+void merge(element initList[], element mergedList[], int i, int m, int n);
+void mergePass(element initList[], element mergedList[], int n, int s);
+void mergeSort(element a[], int n);
 
 #endif //_SORT_H_

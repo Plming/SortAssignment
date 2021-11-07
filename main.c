@@ -11,63 +11,75 @@
 
 #define LEN (20)
 
-void print_menu();
-element *create_random_array_malloc(int size);
-void print_array(element arr[], int from, int to);
+void printMenu();
+element *createRandomArrayMalloc(int size);
+void printArray(element arr[], int from, int to);
 
 int main()
 {
-	element *arr;
+	element *arr = NULL;
 
 	while (1)
 	{
-		print_menu();
 		int command;
+
+		printMenu();
 		scanf(" %d", &command);
 
 		switch (command)
 		{
 		case 1: /* bubble sort */
-			arr = create_random_array_malloc(LEN);
+			arr = createRandomArrayMalloc(LEN);
 			printf("before sort: ");
-			print_array(arr, 0, LEN - 1);
+			printArray(arr, 0, LEN - 1);
 
 			printf("after  sort: ");
-			bubble_sort(arr, LEN);
-			print_array(arr, 0, LEN - 1);
+			bubbleSort(arr, LEN);
+			printArray(arr, 0, LEN - 1);
 			free(arr);
 			break;
 
 		case 3: /* insertion sort */
-			arr = create_random_array_malloc(LEN + 1);
+			arr = createRandomArrayMalloc(LEN + 1);
 			printf("before sort: ");
-			print_array(arr, 1, LEN);
+			printArray(arr, 1, LEN);
 
 			printf("after  sort: ");
-			insertion_sort(arr, LEN);
-			print_array(arr, 1, LEN);
+			insertionSort(arr, LEN);
+			printArray(arr, 1, LEN);
 			free(arr);
 			break;
 
 		case 4: /* selection sort */
-			arr = create_random_array_malloc(LEN);
+			arr = createRandomArrayMalloc(LEN + 1);
 			printf("before sort: ");
-			print_array(arr, 0, LEN - 1);
+			printArray(arr, 1, LEN);
 
 			printf("after  sort: ");
-			selection_sort(arr, LEN);
-			print_array(arr, 0, LEN - 1);
+			selectionSort(arr, LEN);
+			printArray(arr, 1, LEN);
 			free(arr);
 			break;
 
 		case 5: /* quick sort */
-			arr = create_random_array_malloc(LEN);
+			arr = createRandomArrayMalloc(LEN);
 			printf("before sort: ");
-			print_array(arr, 0, LEN - 1);
+			printArray(arr, 0, LEN - 1);
 
 			printf("after  sort: ");
-			quick_sort(arr, 0, LEN - 1);
-			print_array(arr, 0, LEN - 1);
+			quickSort(arr, 0, LEN - 1);
+			printArray(arr, 0, LEN - 1);
+			free(arr);
+			break;
+
+		case 6: /* merge sort */
+			arr = createRandomArrayMalloc(LEN + 1);
+			printf("before sort: ");
+			printArray(arr, 1, LEN);
+
+			printf("after  sort: ");
+			mergeSort(arr, LEN);
+			printArray(arr, 1, LEN);
 			free(arr);
 			break;
 
@@ -81,7 +93,7 @@ int main()
 	}
 }
 
-void print_menu()
+void printMenu()
 {
 	/*
 	 * ****************************************
@@ -143,7 +155,7 @@ void print_menu()
 	printf("select ? ");
 }
 
-element *create_random_array_malloc(int size)
+element *createRandomArrayMalloc(int size)
 {
 	const int THRESHOLD = 100;
 
@@ -160,7 +172,7 @@ element *create_random_array_malloc(int size)
 	return arr;
 }
 
-void print_array(element arr[], int from, int to)
+void printArray(element arr[], int from, int to)
 {
 	int i;
 
