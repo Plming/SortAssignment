@@ -8,6 +8,8 @@ typedef struct
 
 void bubbleSort(element arr[], int length);
 
+void bubbleFlagSort(element list[], int length);
+
 void insert(element e, element a[], int i);
 void insertionSort(element a[], int n);
 

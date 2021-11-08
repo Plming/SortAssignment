@@ -23,6 +23,30 @@ void bubbleSort(element arr[], int length)
 	}
 }
 
+void bubbleFlagSort(element list[], int length)
+{
+	element temp;
+	int i;
+	int flag = length - 1; // represents that list[flag : length - 1] is sorted
+
+	while (flag > 0)
+	{
+		int lastSwappedIndex = 0;
+
+		for (i = 0; i < flag; ++i)
+		{
+			if (list[i + 1].key < list[i].key)
+			{
+				SWAP(list[i], list[i + 1], temp);
+				lastSwappedIndex = i;
+			}
+		}
+
+		// after lastSwappedIndex, list must be sorted
+		flag = lastSwappedIndex;
+	}
+}
+
 void insert(element e, element a[], int i)
 {
 	// pre condition: length of a is more than i + 2

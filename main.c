@@ -39,6 +39,17 @@ int main()
 			free(arr);
 			break;
 
+		case 2: /* bubble sort with flag */
+			arr = createRandomArrayMalloc(LEN);
+			printf("before sort: ");
+			printArray(arr, 1, LEN);
+
+			printf("after  sort: ");
+			bubbleFlagSort(arr, LEN);
+			printArray(arr, 1, LEN);
+			free(arr);
+			break;
+
 		case 3: /* insertion sort */
 			arr = createRandomArrayMalloc(LEN + 1);
 			printf("before sort: ");
