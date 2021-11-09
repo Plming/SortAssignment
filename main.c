@@ -12,12 +12,12 @@
 #define LEN (20)
 
 void printMenu();
-element *createRandomArrayMalloc(int size);
+element* createRandomArrayMalloc(int size);
 void printArray(element arr[], int from, int to);
 
 int main()
 {
-	element *arr = NULL;
+	element* arr = NULL;
 
 	while (1)
 	{
@@ -33,8 +33,9 @@ int main()
 			printf("before sort: ");
 			printArray(arr, 0, LEN - 1);
 
-			printf("after  sort: ");
 			bubbleSort(arr, LEN);
+
+			printf("after  sort: ");
 			printArray(arr, 0, LEN - 1);
 			free(arr);
 			break;
@@ -44,8 +45,9 @@ int main()
 			printf("before sort: ");
 			printArray(arr, 1, LEN);
 
-			printf("after  sort: ");
 			bubbleFlagSort(arr, LEN);
+
+			printf("after  sort: ");
 			printArray(arr, 1, LEN);
 			free(arr);
 			break;
@@ -55,8 +57,9 @@ int main()
 			printf("before sort: ");
 			printArray(arr, 1, LEN);
 
-			printf("after  sort: ");
 			insertionSort(arr, LEN);
+
+			printf("after  sort: ");
 			printArray(arr, 1, LEN);
 			free(arr);
 			break;
@@ -66,8 +69,9 @@ int main()
 			printf("before sort: ");
 			printArray(arr, 1, LEN);
 
-			printf("after  sort: ");
 			selectionSort(arr, LEN);
+
+			printf("after  sort: ");
 			printArray(arr, 1, LEN);
 			free(arr);
 			break;
@@ -77,8 +81,9 @@ int main()
 			printf("before sort: ");
 			printArray(arr, 0, LEN - 1);
 
-			printf("after  sort: ");
 			quickSort(arr, 0, LEN - 1);
+
+			printf("after  sort: ");
 			printArray(arr, 0, LEN - 1);
 			free(arr);
 			break;
@@ -88,8 +93,9 @@ int main()
 			printf("before sort: ");
 			printArray(arr, 1, LEN);
 
-			printf("after  sort: ");
 			mergeSort(arr, LEN);
+
+			printf("after  sort: ");
 			printArray(arr, 1, LEN);
 			free(arr);
 			break;
@@ -99,8 +105,9 @@ int main()
 			printf("before sort: ");
 			printArray(arr, 1, LEN);
 
-			printf("after  sort: ");
 			heapSort(arr, LEN);
+
+			printf("after  sort: ");
 			printArray(arr, 1, LEN);
 			free(arr);
 			break;
@@ -133,20 +140,20 @@ void printMenu()
 	 * ****************************************
 	*/
 
-	const char menus[][32] =
-	{
-		"여러가지 정렬 프로그램 구현",
-		"",
-		"bubble sort",
-		"bubble sort with flag",
-		"insertion sort",
-		"selection sort",
-		"quick sort",
-		"merge sort(iterative)",
-		"heap sort",
-		"radix sort",
-		"quit"
-	};
+	const char menus[][64] =
+		{
+			"여러가지 정렬 프로그램 구현",
+			"",
+			"bubble sort",
+			"bubble sort with flag",
+			"insertion sort",
+			"selection sort",
+			"quick sort",
+			"merge sort(iterative)",
+			"heap sort",
+			"radix sort",
+			"quit"
+		};
 
 	int i;
 
@@ -177,12 +184,12 @@ void printMenu()
 	printf("select ? ");
 }
 
-element *createRandomArrayMalloc(int size)
+element* createRandomArrayMalloc(int size)
 {
 	const int THRESHOLD = 100;
 
 	int i;
-	element *arr = malloc(sizeof(element) * size);
+	element* arr = malloc(sizeof(element) * size);
 	assert(arr != NULL);
 
 	srand(time(NULL));

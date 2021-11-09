@@ -191,7 +191,7 @@ void mergePass(element initList[], element mergedList[], int n, int s)
 void mergeSort(element a[], int n)
 {
 	int s = 1;
-	element *extra = malloc(sizeof(element) * (n + 1));
+	element* extra = malloc(sizeof(element) * (n + 1));
 
 	while (s < n)
 	{
