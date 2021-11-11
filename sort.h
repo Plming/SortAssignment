@@ -6,25 +6,25 @@ typedef struct
 	int key;
 } element;
 
-void bubbleSort(element arr[], int length);
+void bubbleSort(int arr[], int length);
 
-void bubbleFlagSort(element list[], int length);
+void bubbleFlagSort(int list[], int length);
 
-void insert(element e, element a[], int i);
-void insertionSort(element a[], int n);
+void insert(int e, int a[], int i);
+void insertionSort(int a[], int n);
 
-void selectionSort(element arr[], int length);
+void selectionSort(int arr[], int length);
 
-void quickSort(element a[], int left, int right);
+void quickSort(int a[], int left, int right);
 
-void merge(element initList[], element mergedList[], int i, int m, int n);
-void mergePass(element initList[], element mergedList[], int n, int s);
-void mergeSort(element a[], int n);
+void merge(int initList[], int mergedList[], int i, int m, int n);
+void mergePass(int initList[], int mergedList[], int n, int s);
+void mergeSort(int a[], int n);
 
-void adjust(element a[], int root, int n);
-void heapSort(element a[], int n);
+void adjust(int a[], int root, int n);
+void heapSort(int a[], int n);
 
-int digit(element n, int pos, int radix);
-int radixSort(element a[], int link[], int d, int r, int n);
+int digit(int n, int pos, int radix);
+int radixSort(int a[], int link[], int d, int r, int n);
 
 #endif //_SORT_H_

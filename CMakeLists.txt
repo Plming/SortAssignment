@@ -3,4 +3,4 @@ project(SortAssignment C)
 
 set(CMAKE_C_STANDARD 11)
 
-add_executable(SortAssignment main.c sort.c sort.h)
+add_executable(SortAssignment main.c sort.c sort.h util.c util.h)

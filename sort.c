@@ -1,33 +1,34 @@
 #include <stdlib.h>
+#include <assert.h>
 
 #include "sort.h"
 
 #define SWAP(a, b, temp) (temp) = (a); (a) = (b); (b) = (temp)
 
-void bubbleSort(element arr[], int length)
+void bubbleSort(int arr[], int length)
 {
-	int i;
-	int j;
+	int i, j;
+	int temp;
 
 	for (i = length - 1; i > 0; --i)
 	{
 		for (j = 0; j < i; ++j)
 		{
-			if (arr[j + 1].key < arr[j].key)
+			if (arr[j + 1] < arr[j])
 			{
-				element temp = arr[j];
-				arr[j] = arr[j + 1];
-				arr[j + 1] = temp;
+				SWAP(arr[j], arr[j + 1], temp);
 			}
 		}
 	}
 }
 
-void bubbleFlagSort(element list[], int length)
+void bubbleFlagSort(int list[], int length)
 {
-	element temp;
+	// represents that list[flag : length - 1] is sorted
+	int flag = length - 1;
+
 	int i;
-	int flag = length - 1; // represents that list[flag : length - 1] is sorted
+	int temp;
 
 	while (flag > 0)
 	{
@@ -35,7 +36,7 @@ void bubbleFlagSort(element list[], int length)
 
 		for (i = 0; i < flag; ++i)
 		{
-			if (list[i + 1].key < list[i].key)
+			if (list[i + 1] < list[i])
 			{
 				SWAP(list[i], list[i + 1], temp);
 				lastSwappedIndex = i;
@@ -47,13 +48,13 @@ void bubbleFlagSort(element list[], int length)
 	}
 }
 
-void insert(element e, element a[], int i)
+void insert(int e, int a[], int i)
 {
-	// pre condition: length of a is more than i + 2
-	// post condition: a[1:i+1] sorted
+	// pre-condition: length of list is more than i + 2
+	// post-condition: a[1:i+1] sorted
 
 	a[0] = e;
-	while (e.key < a[i].key)
+	while (e < a[i])
 	{
 		a[i + 1] = a[i];
 		--i;
@@ -61,62 +62,61 @@ void insert(element e, element a[], int i)
 	a[i + 1] = e;
 }
 
-void insertionSort(element a[], int n)
+void insertionSort(int a[], int n)
 {
 	// post-condition: a[1:n] sorted
 
 	int j;
 	for (j = 2; j <= n; j++)
 	{
-		element temp = a[j];
+		int temp = a[j];
 		insert(temp, a, j - 1);
 	}
 }
 
-void selectionSort(element arr[], int length)
+void selectionSort(int arr[], int length)
 {
-	int i;
-	int j;
+	int i, j;
+	int temp;
 
 	for (i = 0; i < length - 1; i++)
 	{
 		int minIndex = i;
+
 		for (j = i + 1; j < length; ++j)
 		{
-			if (arr[j].key < arr[minIndex].key)
+			if (arr[j] < arr[minIndex])
 			{
 				minIndex = j;
 			}
 		}
 
-		element temp = arr[i];
-		arr[i] = arr[minIndex];
-		arr[minIndex] = temp;
+		SWAP(arr[i], arr[minIndex], temp);
 	}
 }
 
-void quickSort(element a[], int left, int right)
+void quickSort(int a[], int left, int right)
 {
 	int pivot;
 	int i, j;
-	element temp;
+	int temp;
 
 	if (left < right)
 	{
 		i = left;
 		j = right + 1;
-		pivot = a[left].key;
+		pivot = a[left];
 		do
 		{
 			do
 			{
 				++i;
-			} while (a[i].key < pivot);
+			} while (a[i] < pivot);
 
 			do
 			{
 				--j;
-			} while (a[j].key > pivot);
+			} while (a[j] > pivot);
 
 			if (i < j)
 			{
@@ -129,7 +129,7 @@ void quickSort(element a[], int left, int right)
 	}
 }
 
-void merge(element initList[], element mergedList[], int i, int m, int n)
+void merge(int initList[], int mergedList[], int i, int m, int n)
 {
 	// pre-condition: initList[i:m], initList[m+1,n] are sorted list
 	// post-condition: mergedList[i:n] is sorted list that merged them into
@@ -140,7 +140,7 @@ void merge(element initList[], element mergedList[], int i, int m, int n)
 
 	while (i <= m && j <= n)
 	{
-		if (initList[i].key <= initList[j].key)
+		if (initList[i] <= initList[j])
 		{
 			mergedList[k++] = initList[i++];
 		}
@@ -166,7 +166,7 @@ void merge(element initList[], element mergedList[], int i, int m, int n)
 	}
 }
 
-void mergePass(element initList[], element mergedList[], int n, int s)
+void mergePass(int initList[], int mergedList[], int n, int s)
 {
 	int i, j;
 
@@ -188,10 +188,13 @@ void mergePass(element initList[], element mergedList[], int n, int s)
 	}
 }
 
-void mergeSort(element a[], int n)
+void mergeSort(int a[], int n)
 {
+	// cluster size
 	int s = 1;
-	element* extra = malloc(sizeof(element) * (n + 1));
+
+	int* extra = malloc(sizeof(int) * (n + 1));
+	assert(extra != NULL);
 
 	while (s < n)
 	{
@@ -204,20 +207,20 @@ void mergeSort(element a[], int n)
 	free(extra);
 }
 
-void adjust(element a[], int root, int n)
+void adjust(int a[], int root, int n)
 {
-	element temp = a[root];
-	const int rootKey = a[root].key;
+	int temp = a[root];
+	const int rootKey = a[root];
 
 	int child = 2 * root;
 	while (child <= n)
 	{
-		if (child < n && a[child].key < a[child + 1].key)
+		if (child < n && a[child] < a[child + 1])
 		{
 			++child;
 		}
 
-		if (rootKey > a[child].key)
+		if (rootKey > a[child])
 		{
 			break;
 		}
@@ -231,10 +234,10 @@ void adjust(element a[], int root, int n)
 	a[child / 2] = temp;
 }
 
-void heapSort(element a[], int n)
+void heapSort(int a[], int n)
 {
-	int i, j;
-	element temp;
+	int i;
+	int temp;
 
 	for (i = n / 2; i > 0; --i)
 	{
@@ -248,7 +251,7 @@ void heapSort(element a[], int n)
 	}
 }
 
-int digit(element n, int pos, int radix)
+int digit(int n, int pos, int radix)
 {
 	// assert(digit(123, 0, 10) == 3);
 	// assert(digit(123, 1, 10) == 2);
@@ -257,13 +260,14 @@ int digit(element n, int pos, int radix)
 	int i;
 	for (i = 0; i < pos; ++i)
 	{
-		n.key /= 10;
+		n /= 10;
 	}
 
-	return n.key % radix;
+	return n % radix;
 }
 
-int radixSort(element a[], int link[], int d, int r, int n)
+// TODO: radix sort must be implemented by linked list
+int radixSort(int a[], int link[], int d, int r, int n)
 {
 	int front[r], rear[r];
 	int i;

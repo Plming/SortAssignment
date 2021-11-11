@@ -2,24 +2,19 @@
 #define _CRT_SECURE_NO_WARNINGS
 #endif
 
-#include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 
 #include "sort.h"
+#include "util.h"
 
 #define LEN (20)
 
-void printMenu();
-element* createRandomArrayMalloc(int size);
-void printArray(element arr[], int from, int to);
-
 int main()
 {
-	element* arr = NULL;
-
+	int* arr = NULL;
 	int link[LEN + 1]; // for radix sort
+
 	while (1)
 	{
 		int command;
@@ -123,7 +118,7 @@ int main()
 			printf("after  sort: ");
 			for (int i = first; i != 0; i = link[i])
 			{
-				printf("%2d ", arr[i].key);
+				printf("%2d ", arr[i]);
 			}
 			putchar('\n');
 
@@ -139,94 +134,3 @@ int main()
 		}
 	}
 }
-
-void printMenu()
-{
-	/*
-	 * ****************************************
-	 * ****   여러가지 정렬 프로그램 구현   *****
-	 * ****                                 *****
-	 * ****   1. bubble sort                 *****
-	 * ****   2. bubble sort with flag       *****
-	 * *****  3. insertion sort               *****
-	 * *****  4. selection sort               *****
-	 * *****  5. quick sort                  *****
-	 * *****  6. merge sort(반복문 사용)     *****
-	 * *****  7. heap sort                   *****
-	 * *****  8. radix sort                  *****
-	 * *****  9. quit                        *****
-	 * ****************************************
-	*/
-
-	const char menus[][64] =
-		{
-			"여러가지 정렬 프로그램 구현",
-			"",
-			"bubble sort",
-			"bubble sort with flag",
-			"insertion sort",
-			"selection sort",
-			"quick sort",
-			"merge sort(iterative)",
-			"heap sort",
-			"radix sort",
-			"quit"
-		};
-
-	int i;
-
-	for (i = 0; i < 45; ++i)
-	{
-		putchar('*');
-	}
-	putchar('\n');
-
-	for (i = 0; i < sizeof(menus) / sizeof(menus[0]); ++i)
-	{
-		if (i < 2)
-		{
-			printf("***** %-33s *****\n", menus[i]);
-		}
-		else
-		{
-			printf("***** %d. %-30s *****\n", i - 1, menus[i]);
-		}
-	}
-
-	for (i = 0; i < 45; ++i)
-	{
-		putchar('*');
-	}
-	putchar('\n');
-
-	printf("select ? ");
-}
-
-element* createRandomArrayMalloc(int size)
-{
-	const int MAX_VALUE = 100;
-
-	int i;
-	element* arr = malloc(sizeof(element) * size);
-	assert(arr != NULL);
-
-	srand(time(NULL));
-	for (i = 0; i < size; ++i)
-	{
-		arr[i].key = rand() % MAX_VALUE;
-	}
-
-	return arr;
-}
-
-void printArray(element arr[], int from, int to)
-{
-	int i;
-
-	for (i = from; i <= to; ++i)
-	{
-		printf("%2d ", arr[i].key);
-	}
-	putchar('\n');
-}
-
