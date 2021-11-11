@@ -247,3 +247,68 @@ void heapSort(element a[], int n)
 		adjust(a, 1, i);
 	}
 }
+
+int digit(element n, int pos, int radix)
+{
+	// assert(digit(123, 0, 10) == 3);
+	// assert(digit(123, 1, 10) == 2);
+	// assert(digit(123, 2, 10) == 1);
+
+	int i;
+	for (i = 0; i < pos; ++i)
+	{
+		n.key /= 10;
+	}
+
+	return n.key % radix;
+}
+
+int radixSort(element a[], int link[], int d, int r, int n)
+{
+	int front[r], rear[r];
+	int i;
+	int bin, current, first = 1, last;
+
+	for (i = 1; i < n; ++i)
+	{
+		link[i] = i + 1;
+	}
+
+	link[n] = 0;
+	for (i = d - 1; i >= 0; --i)
+	{
+		for (bin = 0; bin < r; ++bin)
+		{
+			front[bin] = 0;
+		}
+
+		for (current = first; current; current = link[current])
+		{
+			bin = digit(a[current], d - i - 1, r);
+			if (front[bin] == 0)
+			{
+				front[bin] = current;
+			}
+			else
+			{
+				link[rear[bin]] = current;
+			}
+			rear[bin] = current;
+		}
+
+		for (bin = 0; !front[bin]; ++bin);
+		first = front[bin];
+		last = rear[bin];
+		for (++bin; bin < r; ++bin)
+		{
+			if (front[bin])
+			{
+				link[last] = front[bin];
+				last = rear[bin];
+			}
+		}
+		link[last] = 0;
+	}
+
+	return first;
+}

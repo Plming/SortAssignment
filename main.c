@@ -19,6 +19,7 @@ int main()
 {
 	element* arr = NULL;
 
+	int link[LEN + 1]; // for radix sort
 	while (1)
 	{
 		int command;
@@ -112,6 +113,23 @@ int main()
 			free(arr);
 			break;
 
+		case 8: /* radix sort */
+			arr = createRandomArrayMalloc(LEN);
+			printf("before sort: ");
+			printArray(arr, 0, LEN - 1);
+
+			int first = radixSort(arr, link, 3, 10, LEN);
+
+			printf("after  sort: ");
+			for (int i = first; i != 0; i = link[i])
+			{
+				printf("%2d ", arr[i].key);
+			}
+			putchar('\n');
+
+			free(arr);
+			break;
+
 		case 9:
 			return 0;
 
@@ -186,7 +204,7 @@ void printMenu()
 
 element* createRandomArrayMalloc(int size)
 {
-	const int THRESHOLD = 100;
+	const int MAX_VALUE = 100;
 
 	int i;
 	element* arr = malloc(sizeof(element) * size);
@@ -195,7 +213,7 @@ element* createRandomArrayMalloc(int size)
 	srand(time(NULL));
 	for (i = 0; i < size; ++i)
 	{
-		arr[i].key = rand() % THRESHOLD;
+		arr[i].key = rand() % MAX_VALUE;
 	}
 
 	return arr;

@@ -24,4 +24,7 @@ void mergeSort(element a[], int n);
 void adjust(element a[], int root, int n);
 void heapSort(element a[], int n);
 
+int digit(element n, int pos, int radix);
+int radixSort(element a[], int link[], int d, int r, int n);
+
 #endif //_SORT_H_
