@@ -39,12 +39,12 @@ int main()
 		case 2: /* bubble sort with flag */
 			arr = createRandomArrayMalloc(LEN);
 			printf("before sort: ");
-			printArray(arr, 1, LEN);
+			printArray(arr, 0, LEN - 1);
 
 			bubbleFlagSort(arr, LEN);
 
 			printf("after  sort: ");
-			printArray(arr, 1, LEN);
+			printArray(arr, 0, LEN - 1);
 			free(arr);
 			break;
 
@@ -61,14 +61,14 @@ int main()
 			break;
 
 		case 4: /* selection sort */
-			arr = createRandomArrayMalloc(LEN + 1);
+			arr = createRandomArrayMalloc(LEN);
 			printf("before sort: ");
-			printArray(arr, 1, LEN);
+			printArray(arr, 0, LEN - 1);
 
 			selectionSort(arr, LEN);
 
 			printf("after  sort: ");
-			printArray(arr, 1, LEN);
+			printArray(arr, 0, LEN - 1);
 			free(arr);
 			break;
 
