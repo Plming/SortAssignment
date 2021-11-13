@@ -1,5 +1,6 @@
-#include <stdlib.h>
 #include <assert.h>
+#include <stdlib.h>
+#include <time.h>
 
 #include "sort.h"
 
@@ -251,26 +252,33 @@ void heapSort(int a[], int n)
 	}
 }
 
-int digit(int n, int pos, int radix)
+list_node* appendRandomNumber(list_node** appendAt)
 {
-	// assert(digit(123, 0, 10) == 3);
-	// assert(digit(123, 1, 10) == 2);
-	// assert(digit(123, 2, 10) == 1);
-
 	int i;
-	for (i = 0; i < pos; ++i)
+	list_node* newNode = malloc(sizeof(list_node));
+
+	for (i = 0; i < MAX_DIGIT; ++i)
 	{
-		n /= 10;
+		newNode->key[i] = rand() % RADIX_SIZE;
+	}
+	newNode->link = NULL;
+
+	if (*appendAt == NULL)
+	{
+		*appendAt = newNode;
+	}
+	else
+	{
+		(*appendAt)->link = newNode;
 	}
 
-	return n % radix;
+	return newNode;
 }
 
-// TODO: radix sort must be implemented by linked list
-int radixSort(int a[], int link[], int d, int r, int n)
+list_node* radixSort(list_node* ptr)
 {
-	list_pointer front[RADIX_SIZE];
-	list_pointer rear[RADIX_SIZE];
+	list_node* front[RADIX_SIZE];
+	list_node* rear[RADIX_SIZE];
 
 	int i, j;
 
@@ -281,6 +289,29 @@ int radixSort(int a[], int link[], int d, int r, int n)
 		{
 			front[j] = rear[j] = NULL;
 		}
+
+		while (ptr) {
+			const int digit = ptr->key[i];
+
+			if (!front[digit]) {
+				front[digit] = ptr;
+			}
+			else {
+				rear[digit]->link = ptr;
+			}
+
+			rear[digit] = ptr;
+			ptr = ptr->link;
+		}
+
+		ptr = NULL;
+		for (j = RADIX_SIZE - 1; j >= 0; --j) {
+			if (front[j]) {
+				rear[j]->link = ptr;
+				ptr = front[j];
+			}
+		}
 	}
 
+	return ptr;
 }

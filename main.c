@@ -109,20 +109,37 @@ int main()
 			break;
 
 		case 8: /* radix sort */
-			arr = createRandomArrayMalloc(LEN);
-			printf("before sort: ");
-			printArray(arr, 0, LEN - 1);
 
-			int first = radixSort(arr, link, 3, 10, LEN);
-
-			printf("after  sort: ");
-			for (int i = first; i != 0; i = link[i])
+			list_node* list = NULL;
+			list_node* rear = list;
+			for (int i = 0; i < 20; ++i)
 			{
-				printf("%2d ", arr[i]);
+				rear = appendRandomNumber(&rear);
+
+				if (i == 0)
+				{
+					list = rear;
+				}
+			}
+
+			list_node* cursor;
+			printf("Before sort: ");
+			for (cursor = list; cursor != NULL; cursor = cursor->link)
+			{
+				int key = cursor->key[0] * 10 + cursor->key[1];
+				printf("%2d ", key);
 			}
 			putchar('\n');
 
-			free(arr);
+			list = radixSort(list);
+
+			printf("After  sort: ");
+			for (cursor = list; cursor != NULL; cursor = cursor->link)
+			{
+				int key = cursor->key[0] * 10 + cursor->key[1];
+				printf("%2d ", key);
+			}
+			putchar('\n');
 			break;
 
 		case 9:

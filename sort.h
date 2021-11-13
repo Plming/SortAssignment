@@ -4,13 +4,12 @@
 #define MAX_DIGIT (2)
 #define RADIX_SIZE (10)
 
-typedef struct list_node* list_pointer;
-
 typedef struct list_node
 {
 	int key[MAX_DIGIT];
-	list_pointer link;
-};
+	struct list_node* link;
+} list_node;
+
 
 void bubbleSort(int arr[], int length);
 
@@ -30,7 +29,7 @@ void mergeSort(int a[], int n);
 void adjust(int a[], int root, int n);
 void heapSort(int a[], int n);
 
-int digit(int n, int pos, int radix);
-int radixSort(int a[], int link[], int d, int r, int n);
+list_node* appendRandomNumber(list_node** appendAt);
+list_node* radixSort(list_node* ptr);
 
 #endif //_SORT_H_
