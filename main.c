@@ -4,6 +4,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 #include "sort.h"
 #include "util.h"
@@ -12,137 +13,102 @@
 
 int main()
 {
-	int* arr = NULL;
-	int link[LEN + 1]; // for radix sort
+	const char* BEFORE = "before sort: ";
+	const char* AFTER = "after  sort: ";
+	
+	void* list = NULL;
+	enum MenuType menuType;
+
+	srand(time(NULL));
 
 	while (1)
 	{
-		int command;
-
 		printMenu();
-		scanf(" %d", &command);
+		scanf(" %d", &menuType);
 
-		switch (command)
+		switch (menuType)
 		{
-		case 1: /* bubble sort */
-			arr = createRandomArrayMalloc(LEN);
-			printf("before sort: ");
-			printArray(arr, 0, LEN - 1);
+		case BUBBLE_SORT:
+			list = createRandomArrayMalloc(LEN);
+			printArray(BEFORE, list, 0, LEN - 1);
 
-			bubbleSort(arr, LEN);
+			bubbleSort(list, LEN);
 
-			printf("after  sort: ");
-			printArray(arr, 0, LEN - 1);
-			free(arr);
+			printArray(AFTER, list, 0, LEN - 1);
+			free(list);
 			break;
 
-		case 2: /* bubble sort with flag */
-			arr = createRandomArrayMalloc(LEN);
-			printf("before sort: ");
-			printArray(arr, 0, LEN - 1);
+		case BUBBLE_SORT_WITH_FLAG:
+			list = createRandomArrayMalloc(LEN);
+			printArray(BEFORE, list, 0, LEN - 1);
 
-			bubbleFlagSort(arr, LEN);
+			bubbleFlagSort(list, LEN);
 
-			printf("after  sort: ");
-			printArray(arr, 0, LEN - 1);
-			free(arr);
+			printArray(AFTER, list, 0, LEN - 1);
+			free(list);
 			break;
 
-		case 3: /* insertion sort */
-			arr = createRandomArrayMalloc(LEN + 1);
-			printf("before sort: ");
-			printArray(arr, 1, LEN);
+		case INSERTION_SORT:
+			list = createRandomArrayMalloc(LEN + 1);
+			printArray(BEFORE, list, 1, LEN);
 
-			insertionSort(arr, LEN);
+			insertionSort(list, LEN);
 
-			printf("after  sort: ");
-			printArray(arr, 1, LEN);
-			free(arr);
+			printArray(AFTER, list, 1, LEN);
+			free(list);
 			break;
 
-		case 4: /* selection sort */
-			arr = createRandomArrayMalloc(LEN);
-			printf("before sort: ");
-			printArray(arr, 0, LEN - 1);
+		case SELECTION_SORT:
+			list = createRandomArrayMalloc(LEN);
+			printArray(BEFORE, list, 0, LEN - 1);
 
-			selectionSort(arr, LEN);
+			selectionSort(list, LEN);
 
-			printf("after  sort: ");
-			printArray(arr, 0, LEN - 1);
-			free(arr);
+			printArray(AFTER, list, 0, LEN - 1);
+			free(list);
 			break;
 
-		case 5: /* quick sort */
-			arr = createRandomArrayMalloc(LEN);
-			printf("before sort: ");
-			printArray(arr, 0, LEN - 1);
+		case QUICK_SORT:
+			list = createRandomArrayMalloc(LEN);
+			printArray(BEFORE, list, 0, LEN - 1);
 
-			quickSort(arr, 0, LEN - 1);
+			quickSort(list, 0, LEN - 1);
 
-			printf("after  sort: ");
-			printArray(arr, 0, LEN - 1);
-			free(arr);
+			printArray(AFTER, list, 0, LEN - 1);
+			free(list);
 			break;
 
-		case 6: /* merge sort */
-			arr = createRandomArrayMalloc(LEN + 1);
-			printf("before sort: ");
-			printArray(arr, 1, LEN);
+		case ITERATIVE_MERGE_SORT:
+			list = createRandomArrayMalloc(LEN + 1);
+			printArray(BEFORE, list, 1, LEN);
 
-			mergeSort(arr, LEN);
+			mergeSort(list, LEN);
 
-			printf("after  sort: ");
-			printArray(arr, 1, LEN);
-			free(arr);
+			printArray(AFTER, list, 1, LEN);
+			free(list);
 			break;
 
-		case 7: /* heap sort */
-			arr = createRandomArrayMalloc(LEN + 1);
-			printf("before sort: ");
-			printArray(arr, 1, LEN);
+		case HEAP_SORT:
+			list = createRandomArrayMalloc(LEN + 1);
+			printArray(BEFORE, list, 1, LEN);
 
-			heapSort(arr, LEN);
+			heapSort(list, LEN);
 
-			printf("after  sort: ");
-			printArray(arr, 1, LEN);
-			free(arr);
+			printArray(AFTER, list, 1, LEN);
+			free(list);
 			break;
 
-		case 8: /* radix sort */
-
-			list_node* list = NULL;
-			list_node* rear = list;
-			for (int i = 0; i < 20; ++i)
-			{
-				rear = appendRandomNumber(&rear);
-
-				if (i == 0)
-				{
-					list = rear;
-				}
-			}
-
-			list_node* cursor;
-			printf("Before sort: ");
-			for (cursor = list; cursor != NULL; cursor = cursor->link)
-			{
-				int key = cursor->key[0] * 10 + cursor->key[1];
-				printf("%2d ", key);
-			}
-			putchar('\n');
+		case RADIX_SORT:
+			list = createRandomListMalloc(LEN);
+			printList(BEFORE, list);
 
 			list = radixSort(list);
 
-			printf("After  sort: ");
-			for (cursor = list; cursor != NULL; cursor = cursor->link)
-			{
-				int key = cursor->key[0] * 10 + cursor->key[1];
-				printf("%2d ", key);
-			}
-			putchar('\n');
+			printList(AFTER, list);
+			destructList(list);
 			break;
 
-		case 9:
+		case QUIT:
 			return 0;
 
 		default:

@@ -1,8 +1,8 @@
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 
+#include "sort.h"
 #include "util.h"
 
 void printMenu()
@@ -24,19 +24,19 @@ void printMenu()
 	*/
 
 	const char menus[][64] =
-		{
-			"여러가지 정렬 프로그램 구현",
-			"",
-			"bubble sort",
-			"bubble sort with flag",
-			"insertion sort",
-			"selection sort",
-			"quick sort",
-			"merge sort(iterative)",
-			"heap sort",
-			"radix sort",
-			"quit"
-		};
+	{
+		"여러가지 정렬 프로그램 구현",
+		"",
+		"bubble sort",
+		"bubble sort with flag",
+		"insertion sort",
+		"selection sort",
+		"quick sort",
+		"merge sort(iterative)",
+		"heap sort",
+		"radix sort",
+		"quit"
+	};
 
 	int i;
 
@@ -75,7 +75,7 @@ int* createRandomArrayMalloc(int size)
 	int* const arr = malloc(sizeof(int) * size);
 	assert(arr != NULL);
 
-	srand(time(NULL));
+	//srand(time(NULL));
 	for (i = 0; i < size; ++i)
 	{
 		arr[i] = rand() % MAX_VALUE;
@@ -84,9 +84,40 @@ int* createRandomArrayMalloc(int size)
 	return arr;
 }
 
-void printArray(int arr[], int from, int to)
+list_node* createRandomListMalloc(int size)
+{
+	list_node* list = NULL;
+	list_node* rear = list;
+	int i;
+
+	for (i = 0; i < size; ++i)
+	{
+		rear = appendRandomNumber(&rear);
+
+		if (i == 0)
+		{
+			list = rear;
+		}
+	}
+
+	return list;
+}
+
+void destructList(list_node* list)
+{
+	while (list != NULL)
+	{
+		list_node* next = list->link;
+		free(list);
+		list = next;
+	}
+}
+
+void printArray(const char* prefix, int arr[], int from, int to)
 {
 	int i;
+
+	printf("%s", prefix);
 
 	for (i = from; i <= to; ++i)
 	{
@@ -95,3 +126,20 @@ void printArray(int arr[], int from, int to)
 	putchar('\n');
 }
 
+void printList(const char* prefix, list_node* list)
+{
+	printf("%s", prefix);
+	for (; list != NULL; list = list->link)
+	{
+		int key = 0;
+		int i;
+		for (i = 0; i < MAX_DIGIT; ++i)
+		{
+			key *= RADIX_SIZE;
+			key += list->key[i];
+		}
+
+		printf("%2d ", key);
+	}
+	putchar('\n');
+}
