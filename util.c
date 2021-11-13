@@ -75,7 +75,6 @@ int* createRandomArrayMalloc(int size)
 	int* const arr = malloc(sizeof(int) * size);
 	assert(arr != NULL);
 
-	//srand(time(NULL));
 	for (i = 0; i < size; ++i)
 	{
 		arr[i] = rand() % MAX_VALUE;
