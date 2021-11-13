@@ -1,10 +1,16 @@
 #ifndef _SORT_H_
 #define _SORT_H_
 
-typedef struct
+#define MAX_DIGIT (2)
+#define RADIX_SIZE (10)
+
+typedef struct list_node* list_pointer;
+
+typedef struct list_node
 {
-	int key;
-} element;
+	int key[MAX_DIGIT];
+	list_pointer link;
+};
 
 void bubbleSort(int arr[], int length);
 

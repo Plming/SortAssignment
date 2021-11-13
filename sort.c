@@ -269,50 +269,18 @@ int digit(int n, int pos, int radix)
 // TODO: radix sort must be implemented by linked list
 int radixSort(int a[], int link[], int d, int r, int n)
 {
-	int front[r], rear[r];
-	int i;
-	int bin, current, first = 1, last;
+	list_pointer front[RADIX_SIZE];
+	list_pointer rear[RADIX_SIZE];
 
-	for (i = 1; i < n; ++i)
+	int i, j;
+
+	for (i = MAX_DIGIT - 1; i >= 0; --i)
 	{
-		link[i] = i + 1;
+		// initialize bins
+		for (j = 0; j < RADIX_SIZE; ++j)
+		{
+			front[j] = rear[j] = NULL;
+		}
 	}
 
-	link[n] = 0;
-	for (i = d - 1; i >= 0; --i)
-	{
-		for (bin = 0; bin < r; ++bin)
-		{
-			front[bin] = 0;
-		}
-
-		for (current = first; current; current = link[current])
-		{
-			bin = digit(a[current], d - i - 1, r);
-			if (front[bin] == 0)
-			{
-				front[bin] = current;
-			}
-			else
-			{
-				link[rear[bin]] = current;
-			}
-			rear[bin] = current;
-		}
-
-		for (bin = 0; !front[bin]; ++bin);
-		first = front[bin];
-		last = rear[bin];
-		for (++bin; bin < r; ++bin)
-		{
-			if (front[bin])
-			{
-				link[last] = front[bin];
-				last = rear[bin];
-			}
-		}
-		link[last] = 0;
-	}
-
-	return first;
 }
