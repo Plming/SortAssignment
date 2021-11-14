@@ -15,10 +15,13 @@ enum MenuType
 };
 
 void printMenu();
+
 int* createRandomArrayMalloc(int size);
-list_node* createRandomListMalloc(int size);
-void destructList(list_node* list);
+node_t* createRandomListMalloc(int size);
+
+void destructList(node_t* list);
+
 void printArray(const char* prefix, int arr[], int from, int to);
-void printList(const char* prefix, list_node* list);
+void printList(const char* prefix, node_t* list);
 
 #endif //_UTIL_H_

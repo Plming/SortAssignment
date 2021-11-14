@@ -24,19 +24,19 @@ void printMenu()
 	*/
 
 	const char menus[][64] =
-	{
-		"여러가지 정렬 프로그램 구현",
-		"",
-		"bubble sort",
-		"bubble sort with flag",
-		"insertion sort",
-		"selection sort",
-		"quick sort",
-		"merge sort(iterative)",
-		"heap sort",
-		"radix sort",
-		"quit"
-	};
+		{
+			"여러가지 정렬 프로그램 구현",
+			"",
+			"bubble sort",
+			"bubble sort with flag",
+			"insertion sort",
+			"selection sort",
+			"quick sort",
+			"merge sort(iterative)",
+			"heap sort",
+			"radix sort",
+			"quit"
+		};
 
 	int i;
 
@@ -83,10 +83,10 @@ int* createRandomArrayMalloc(int size)
 	return arr;
 }
 
-list_node* createRandomListMalloc(int size)
+node_t* createRandomListMalloc(int size)
 {
-	list_node* list = NULL;
-	list_node* rear = list;
+	node_t* list = NULL;
+	node_t* rear = list;
 	int i;
 
 	for (i = 0; i < size; ++i)
@@ -102,11 +102,11 @@ list_node* createRandomListMalloc(int size)
 	return list;
 }
 
-void destructList(list_node* list)
+void destructList(node_t* list)
 {
 	while (list != NULL)
 	{
-		list_node* next = list->link;
+		node_t* next = list->link;
 		free(list);
 		list = next;
 	}
@@ -125,7 +125,7 @@ void printArray(const char* prefix, int arr[], int from, int to)
 	putchar('\n');
 }
 
-void printList(const char* prefix, list_node* list)
+void printList(const char* prefix, node_t* list)
 {
 	printf("%s", prefix);
 	for (; list != NULL; list = list->link)

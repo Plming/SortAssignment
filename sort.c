@@ -252,10 +252,11 @@ void heapSort(int a[], int n)
 	}
 }
 
-list_node* appendRandomNumber(list_node** appendAt)
+node_t* appendRandomNumber(node_t** appendAt)
 {
 	int i;
-	list_node* newNode = malloc(sizeof(list_node));
+	node_t* newNode = malloc(sizeof(node_t));
+	assert(newNode != NULL);
 
 	for (i = 0; i < MAX_DIGIT; ++i)
 	{
@@ -275,10 +276,12 @@ list_node* appendRandomNumber(list_node** appendAt)
 	return newNode;
 }
 
-list_node* radixSort(list_node* ptr)
+node_t* radixSort(node_t* ptr)
 {
-	list_node* front[RADIX_SIZE];
-	list_node* rear[RADIX_SIZE];
+	// return the head node of sorted linked list
+
+	node_t* front[RADIX_SIZE];
+	node_t* rear[RADIX_SIZE];
 
 	int i, j;
 
@@ -290,13 +293,16 @@ list_node* radixSort(list_node* ptr)
 			front[j] = rear[j] = NULL;
 		}
 
-		while (ptr) {
+		while (ptr)
+		{
 			const int digit = ptr->key[i];
 
-			if (!front[digit]) {
+			if (!front[digit])
+			{
 				front[digit] = ptr;
 			}
-			else {
+			else
+			{
 				rear[digit]->link = ptr;
 			}
 
@@ -305,8 +311,10 @@ list_node* radixSort(list_node* ptr)
 		}
 
 		ptr = NULL;
-		for (j = RADIX_SIZE - 1; j >= 0; --j) {
-			if (front[j]) {
+		for (j = RADIX_SIZE - 1; j >= 0; --j)
+		{
+			if (front[j])
+			{
 				rear[j]->link = ptr;
 				ptr = front[j];
 			}

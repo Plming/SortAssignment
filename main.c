@@ -15,7 +15,7 @@ int main()
 {
 	const char* BEFORE = "before sort: ";
 	const char* AFTER = "after  sort: ";
-	
+
 	void* list = NULL;
 	enum MenuType menuType;
 
