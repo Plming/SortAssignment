@@ -21,14 +21,13 @@ void selectionSort(int arr[], int length);
 
 void quickSort(int a[], int left, int right);
 
-void merge(int initList[], int mergedList[], int i, int m, int n);
+void merge(const int initList[], int mergedList[], int i, int m, int n);
 void mergePass(int initList[], int mergedList[], int n, int s);
-void mergeSort(int a[], int n);
+void mergeSort(int arr[], int n);
 
 void adjust(int a[], int root, int n);
 void heapSort(int a[], int n);
 
-node_t* appendRandomNumber(node_t** appendAt);
 node_t* radixSort(node_t* ptr);
 
 #endif //_SORT_H_

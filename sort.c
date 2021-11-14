@@ -130,10 +130,10 @@ void quickSort(int a[], int left, int right)
 	}
 }
 
-void merge(int initList[], int mergedList[], int i, int m, int n)
+void merge(const int initList[], int mergedList[], int i, int m, int n)
 {
-	// pre-condition: initList[i:m], initList[m+1,n] are sorted list
-	// post-condition: mergedList[i:n] is sorted list that merged them into
+	// pre-condition: initList[i : m], initList[m + 1 : n] are sorted list
+	// post-condition: mergedList[i : n] is sorted list that merged them into
 
 	int j = m + 1;
 	int k = i;
@@ -171,38 +171,40 @@ void mergePass(int initList[], int mergedList[], int n, int s)
 {
 	int i, j;
 
-	for (i = 1; i <= n - 2 * s + 1; i += 2 * s)
+	for (i = 0; i <= n - 2 * s; i += 2 * s)
 	{
 		merge(initList, mergedList, i, i + s - 1, i + 2 * s - 1);
 	}
 
-	if ((i + s - 1) < n)
+	if (i + s < n)
 	{
-		merge(initList, mergedList, i, i + s - 1, n);
+		merge(initList, mergedList, i, i + s - 1, n - 1);
 	}
 	else
 	{
-		for (j = i; j <= n; ++j)
+		for (j = i; j < n; ++j)
 		{
 			mergedList[j] = initList[j];
 		}
 	}
 }
 
-void mergeSort(int a[], int n)
+void mergeSort(int arr[], int n)
 {
-	// cluster size
-	int s = 1;
+	// post-condition: arr[0 : n - 1] is sorted
 
-	int* extra = malloc(sizeof(int) * (n + 1));
+	// cluster size
+	int size = 1;
+
+	int* extra = malloc(sizeof(int) * (n));
 	assert(extra != NULL);
 
-	while (s < n)
+	while (size < n)
 	{
-		mergePass(a, extra, n, s);
-		s *= 2;
-		mergePass(extra, a, n, s);
-		s *= 2;
+		mergePass(arr, extra, n, size);
+		size *= 2;
+		mergePass(extra, arr, n, size);
+		size *= 2;
 	}
 
 	free(extra);
@@ -250,30 +252,6 @@ void heapSort(int a[], int n)
 		SWAP(a[1], a[i + 1], temp);
 		adjust(a, 1, i);
 	}
-}
-
-node_t* appendRandomNumber(node_t** appendAt)
-{
-	int i;
-	node_t* newNode = malloc(sizeof(node_t));
-	assert(newNode != NULL);
-
-	for (i = 0; i < MAX_DIGIT; ++i)
-	{
-		newNode->key[i] = rand() % RADIX_SIZE;
-	}
-	newNode->link = NULL;
-
-	if (*appendAt == NULL)
-	{
-		*appendAt = newNode;
-	}
-	else
-	{
-		(*appendAt)->link = newNode;
-	}
-
-	return newNode;
 }
 
 node_t* radixSort(node_t* ptr)

@@ -102,6 +102,30 @@ node_t* createRandomListMalloc(int size)
 	return list;
 }
 
+node_t* appendRandomNumber(node_t** appendAt)
+{
+	int i;
+	node_t* newNode = malloc(sizeof(node_t));
+	assert(newNode != NULL);
+
+	for (i = 0; i < MAX_DIGIT; ++i)
+	{
+		newNode->key[i] = rand() % RADIX_SIZE;
+	}
+	newNode->link = NULL;
+
+	if (*appendAt == NULL)
+	{
+		*appendAt = newNode;
+	}
+	else
+	{
+		(*appendAt)->link = newNode;
+	}
+
+	return newNode;
+}
+
 void destructList(node_t* list)
 {
 	while (list != NULL)

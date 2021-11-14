@@ -79,12 +79,12 @@ int main()
 			break;
 
 		case ITERATIVE_MERGE_SORT:
-			list = createRandomArrayMalloc(LEN + 1);
-			printArray(BEFORE, list, 1, LEN);
+			list = createRandomArrayMalloc(LEN);
+			printArray(BEFORE, list, 0, LEN - 1);
 
 			mergeSort(list, LEN);
 
-			printArray(AFTER, list, 1, LEN);
+			printArray(AFTER, list, 0, LEN - 1);
 			free(list);
 			break;
 

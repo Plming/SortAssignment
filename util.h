@@ -18,6 +18,7 @@ void printMenu();
 
 int* createRandomArrayMalloc(int size);
 node_t* createRandomListMalloc(int size);
+node_t* appendRandomNumber(node_t** appendAt);
 
 void destructList(node_t* list);
 
