@@ -13,10 +13,10 @@
 
 int main()
 {
-	const char* BEFORE = "before sort: ";
-	const char* AFTER = "after  sort: ";
+	const char *BEFORE = "before sort: ";
+	const char *AFTER = "after  sort: ";
 
-	void* list = NULL;
+	void *list = NULL;
 	enum MenuType menuType;
 
 	srand(time(NULL));
@@ -49,12 +49,12 @@ int main()
 			break;
 
 		case INSERTION_SORT:
-			list = createRandomArrayMalloc(LEN + 1);
-			printArray(BEFORE, list, 1, LEN);
+			list = createRandomArrayMalloc(LEN);
+			printArray(BEFORE, list, 0, LEN - 1);
 
 			insertionSort(list, LEN);
 
-			printArray(AFTER, list, 1, LEN);
+			printArray(AFTER, list, 0, LEN - 1);
 			free(list);
 			break;
 
@@ -112,7 +112,7 @@ int main()
 			return 0;
 
 		default:
-			printf("Àß¸øµÈ ÀÔ·ÂÀÔ´Ï´Ù.\n");
+			printf("ì˜ëª»ëœ ì…ë ¥ì…ë‹ˆë‹¤.\n");
 			break;
 		}
 	}

@@ -14,7 +14,6 @@ void bubbleSort(int arr[], int length);
 
 void bubbleFlagSort(int list[], int length);
 
-void insert(int e, int a[], int i);
 void insertionSort(int a[], int n);
 
 void selectionSort(int arr[], int length);

@@ -49,29 +49,19 @@ void bubbleFlagSort(int list[], int length)
 	}
 }
 
-void insert(int e, int a[], int i)
-{
-	// pre-condition: length of list is more than i + 2
-	// post-condition: a[1:i+1] sorted
-
-	a[0] = e;
-	while (e < a[i])
-	{
-		a[i + 1] = a[i];
-		--i;
-	}
-	a[i + 1] = e;
-}
-
 void insertionSort(int a[], int n)
 {
-	// post-condition: a[1:n] sorted
-
-	int j;
-	for (j = 2; j <= n; j++)
+	/* perform a insertion sort on the list */
+	int i, j;
+	int temp;
+	for (i = 1; i < n; i++)
 	{
-		int temp = a[j];
-		insert(temp, a, j - 1);
+		temp = a[i]; /* save a[i] */
+		for (j = i - 1; j >= 0 && temp < a[j]; j--)
+		{
+			a[j + 1] = a[j]; /* shift operation */
+		}
+		a[j + 1] = temp;
 	}
 }
 
@@ -196,7 +186,7 @@ void mergeSort(int arr[], int n)
 	// cluster size
 	int size = 1;
 
-	int* extra = malloc(sizeof(int) * (n));
+	int *extra = malloc(sizeof(int) * (n));
 	assert(extra != NULL);
 
 	while (size < n)
@@ -254,12 +244,12 @@ void heapSort(int a[], int n)
 	}
 }
 
-node_t* radixSort(node_t* ptr)
+node_t *radixSort(node_t *ptr)
 {
 	// return the head node of sorted linked list
 
-	node_t* front[RADIX_SIZE];
-	node_t* rear[RADIX_SIZE];
+	node_t *front[RADIX_SIZE];
+	node_t *rear[RADIX_SIZE];
 
 	int i, j;
 
