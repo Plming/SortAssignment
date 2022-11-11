@@ -1,30 +1,14 @@
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 #include "sort.h"
 #include "util.h"
 
-void printMenu()
+void print_menu()
 {
-	/*
-	 * ****************************************
-	 * ****   여러가지 정렬 프로그램 구현    *****
-	 * ****                                 *****
-	 * ****   1. bubble sort                 *****
-	 * ****   2. bubble sort with flag       *****
-	 * *****  3. insertion sort               *****
-	 * *****  4. selection sort               *****
-	 * *****  5. quick sort                  *****
-	 * *****  6. merge sort(반복문 사용)     *****
-	 * *****  7. heap sort                   *****
-	 * *****  8. radix sort                  *****
-	 * *****  9. quit                        *****
-	 * ****************************************
-	*/
-
-	const char menus[][64] =
-		{
+	static const char menus[][64] = {
 			"여러가지 정렬 프로그램 구현",
 			"",
 			"bubble sort",
@@ -36,9 +20,9 @@ void printMenu()
 			"heap sort",
 			"radix sort",
 			"quit"
-		};
+	};
 
-	int i;
+	size_t i;
 
 	for (i = 0; i < 45; ++i)
 	{
@@ -54,7 +38,7 @@ void printMenu()
 		}
 		else
 		{
-			printf("***** %d. %-30s *****\n", i - 1, menus[i]);
+			printf("***** %lu. %-30s *****\n", i - 1, menus[i]);
 		}
 	}
 
@@ -67,15 +51,16 @@ void printMenu()
 	printf("select ? ");
 }
 
-int* createRandomArrayMalloc(int size)
+int* create_numbers_array_malloc(int length)
 {
-	static const int MAX_VALUE = 100;
+    const int MAX_VALUE = 100;
 
-	int i;
-	int* const arr = malloc(sizeof(int) * size);
+	size_t i;
+	int* const arr = malloc(sizeof(int) * length);
+
 	assert(arr != NULL);
 
-	for (i = 0; i < size; ++i)
+	for (i = 0; i < length; ++i)
 	{
 		arr[i] = rand() % MAX_VALUE;
 	}
@@ -83,15 +68,15 @@ int* createRandomArrayMalloc(int size)
 	return arr;
 }
 
-node_t* createRandomListMalloc(int size)
+node_t* create_numbers_list_malloc(int length)
 {
 	node_t* list = NULL;
 	node_t* rear = list;
-	int i;
+	size_t i;
 
-	for (i = 0; i < size; ++i)
+	for (i = 0; i < length; ++i)
 	{
-		rear = appendRandomNumber(&rear);
+		rear = append_random_number(&rear);
 
 		if (i == 0)
 		{
@@ -102,31 +87,31 @@ node_t* createRandomListMalloc(int size)
 	return list;
 }
 
-node_t* appendRandomNumber(node_t** appendAt)
+node_t* append_random_number(node_t** append_at)
 {
 	int i;
-	node_t* newNode = malloc(sizeof(node_t));
-	assert(newNode != NULL);
+	node_t* new_node = malloc(sizeof(node_t));
+	assert(new_node != NULL);
 
 	for (i = 0; i < MAX_DIGIT; ++i)
 	{
-		newNode->key[i] = rand() % RADIX_SIZE;
+        new_node->key[i] = rand() % RADIX_SIZE;
 	}
-	newNode->link = NULL;
+    new_node->link = NULL;
 
-	if (*appendAt == NULL)
+	if (*append_at == NULL)
 	{
-		*appendAt = newNode;
+		*append_at = new_node;
 	}
 	else
 	{
-		(*appendAt)->link = newNode;
+		(*append_at)->link = new_node;
 	}
 
-	return newNode;
+	return new_node;
 }
 
-void destructList(node_t* list)
+void destroy_list(node_t* list)
 {
 	while (list != NULL)
 	{
@@ -136,9 +121,9 @@ void destructList(node_t* list)
 	}
 }
 
-void printArray(const char* prefix, int arr[], int from, int to)
+void print_array(const char* prefix, int arr[], int from, int to)
 {
-	int i;
+	size_t i;
 
 	printf("%s", prefix);
 
@@ -149,7 +134,7 @@ void printArray(const char* prefix, int arr[], int from, int to)
 	putchar('\n');
 }
 
-void printList(const char* prefix, node_t* list)
+void print_list(const char* prefix, node_t* list)
 {
 	printf("%s", prefix);
 	for (; list != NULL; list = list->link)

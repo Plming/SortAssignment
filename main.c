@@ -1,7 +1,3 @@
-#ifdef _WIN32
-#define _CRT_SECURE_NO_WARNINGS
-#endif
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -9,111 +5,111 @@
 #include "sort.h"
 #include "util.h"
 
-#define LEN (20)
+#define LEN (16)
 
-int main()
-{
-	const char *BEFORE = "before sort: ";
-	const char *AFTER = "after  sort: ";
+int main(void) {
+    const char *BEFORE = "before sort: ";
+    const char *AFTER = "after  sort: ";
 
-	void *list = NULL;
-	enum MenuType menuType;
+    void *list = NULL;
+    menu_t menu;
 
-	srand(time(NULL));
+    while (1) {
+        clock_t start;
 
-	while (1)
-	{
-		printMenu();
-		scanf(" %d", &menuType);
+        print_menu();
+        scanf(" %d", &menu);
 
-		switch (menuType)
-		{
-		case BUBBLE_SORT:
-			list = createRandomArrayMalloc(LEN);
-			printArray(BEFORE, list, 0, LEN - 1);
+        start = clock();
+        switch (menu) {
+            case BUBBLE_SORT:
+                list = create_numbers_array_malloc(LEN);
+                print_array(BEFORE, list, 0, LEN - 1);
 
-			bubbleSort(list, LEN);
+                bubble_sort(list, LEN);
 
-			printArray(AFTER, list, 0, LEN - 1);
-			free(list);
-			break;
+                print_array(AFTER, list, 0, LEN - 1);
+                free(list);
+                break;
 
-		case BUBBLE_SORT_WITH_FLAG:
-			list = createRandomArrayMalloc(LEN);
-			printArray(BEFORE, list, 0, LEN - 1);
+            case BUBBLE_SORT_WITH_FLAG:
+                list = create_numbers_array_malloc(LEN);
+                print_array(BEFORE, list, 0, LEN - 1);
 
-			bubbleFlagSort(list, LEN);
+                bubble_sort_with_flag(list, LEN);
 
-			printArray(AFTER, list, 0, LEN - 1);
-			free(list);
-			break;
+                print_array(AFTER, list, 0, LEN - 1);
+                free(list);
+                break;
 
-		case INSERTION_SORT:
-			list = createRandomArrayMalloc(LEN);
-			printArray(BEFORE, list, 0, LEN - 1);
+            case INSERTION_SORT:
+                list = create_numbers_array_malloc(LEN);
+                print_array(BEFORE, list, 0, LEN - 1);
 
-			insertionSort(list, LEN);
+                insertion_sort(list, LEN);
 
-			printArray(AFTER, list, 0, LEN - 1);
-			free(list);
-			break;
+                print_array(AFTER, list, 0, LEN - 1);
+                free(list);
+                break;
 
-		case SELECTION_SORT:
-			list = createRandomArrayMalloc(LEN);
-			printArray(BEFORE, list, 0, LEN - 1);
+            case SELECTION_SORT:
+                list = create_numbers_array_malloc(LEN);
+                print_array(BEFORE, list, 0, LEN - 1);
 
-			selectionSort(list, LEN);
+                selection_sort(list, LEN);
 
-			printArray(AFTER, list, 0, LEN - 1);
-			free(list);
-			break;
+                print_array(AFTER, list, 0, LEN - 1);
+                free(list);
+                break;
 
-		case QUICK_SORT:
-			list = createRandomArrayMalloc(LEN);
-			printArray(BEFORE, list, 0, LEN - 1);
+            case QUICK_SORT:
+                list = create_numbers_array_malloc(LEN);
+                print_array(BEFORE, list, 0, LEN - 1);
 
-			quickSort(list, 0, LEN - 1);
+                quick_sort(list, 0, LEN - 1);
 
-			printArray(AFTER, list, 0, LEN - 1);
-			free(list);
-			break;
+                print_array(AFTER, list, 0, LEN - 1);
+                free(list);
+                break;
 
-		case ITERATIVE_MERGE_SORT:
-			list = createRandomArrayMalloc(LEN);
-			printArray(BEFORE, list, 0, LEN - 1);
+            case ITERATIVE_MERGE_SORT:
+                list = create_numbers_array_malloc(LEN);
+                print_array(BEFORE, list, 0, LEN - 1);
 
-			mergeSort(list, LEN);
+                merge_sort(list, LEN);
 
-			printArray(AFTER, list, 0, LEN - 1);
-			free(list);
-			break;
+                print_array(AFTER, list, 0, LEN - 1);
+                free(list);
+                break;
 
-		case HEAP_SORT:
-			list = createRandomArrayMalloc(LEN + 1);
-			printArray(BEFORE, list, 1, LEN);
+            case HEAP_SORT:
+                list = create_numbers_array_malloc(LEN + 1);
+                print_array(BEFORE, list, 1, LEN);
 
-			heapSort(list, LEN);
+                heap_sort(list, LEN);
 
-			printArray(AFTER, list, 1, LEN);
-			free(list);
-			break;
+                print_array(AFTER, list, 1, LEN);
+                free(list);
+                break;
 
-		case RADIX_SORT:
-			list = createRandomListMalloc(LEN);
-			printList(BEFORE, list);
+            case RADIX_SORT:
+                list = create_numbers_list_malloc(LEN);
+                print_list(BEFORE, list);
 
-			list = radixSort(list);
+                list = radix_sort(list);
 
-			printList(AFTER, list);
-			destructList(list);
-			break;
+                print_list(AFTER, list);
+                destroy_list(list);
+                break;
 
-		case QUIT:
-			return 0;
+            case QUIT:
+                return 0;
 
-		default:
-			printf("잘못된 입력입니다.\n");
-			break;
-		}
-	}
+            default:
+                printf("잘못된 입력입니다.\n");
+                break;
+        }
+
+        printf("Elapsed time: %f seconds\n", (double) (clock() - start) / CLOCKS_PER_SEC);
+    }
 }

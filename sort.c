@@ -6,9 +6,10 @@
 
 #define SWAP(a, b, temp) (temp) = (a); (a) = (b); (b) = (temp)
 
-void bubbleSort(int arr[], int length)
+void bubble_sort(int arr[], int length)
 {
-	int i, j;
+	size_t i;
+	size_t j;
 	int temp;
 
 	for (i = length - 1; i > 0; --i)
@@ -23,7 +24,7 @@ void bubbleSort(int arr[], int length)
 	}
 }
 
-void bubbleFlagSort(int list[], int length)
+void bubble_sort_with_flag(int list[], int length)
 {
 	// represents that list[flag : length - 1] is sorted
 	int flag = length - 1;
@@ -33,25 +34,24 @@ void bubbleFlagSort(int list[], int length)
 
 	while (flag > 0)
 	{
-		int lastSwappedIndex = 0;
+		int last_swapped_index = 0;
 
 		for (i = 0; i < flag; ++i)
 		{
 			if (list[i + 1] < list[i])
 			{
 				SWAP(list[i], list[i + 1], temp);
-				lastSwappedIndex = i;
+				last_swapped_index = i;
 			}
 		}
 
-		// after lastSwappedIndex, list must be sorted
-		flag = lastSwappedIndex;
+		// after last_swapped_index, list must be sorted
+		flag = last_swapped_index;
 	}
 }
 
-void insertionSort(int a[], int n)
+void insertion_sort(int a[], int n)
 {
-	/* perform a insertion sort on the list */
 	int i, j;
 	int temp;
 	for (i = 1; i < n; i++)
@@ -65,28 +65,28 @@ void insertionSort(int a[], int n)
 	}
 }
 
-void selectionSort(int arr[], int length)
+void selection_sort(int arr[], int length)
 {
 	int i, j;
 	int temp;
 
 	for (i = 0; i < length - 1; i++)
 	{
-		int minIndex = i;
+		int min_index = i;
 
 		for (j = i + 1; j < length; ++j)
 		{
-			if (arr[j] < arr[minIndex])
+			if (arr[j] < arr[min_index])
 			{
-				minIndex = j;
+				min_index = j;
 			}
 		}
 
-		SWAP(arr[i], arr[minIndex], temp);
+		SWAP(arr[i], arr[min_index], temp);
 	}
 }
 
-void quickSort(int a[], int left, int right)
+void quick_sort(int a[], int left, int right)
 {
 	int pivot;
 	int i, j;
@@ -115,15 +115,15 @@ void quickSort(int a[], int left, int right)
 			}
 		} while (i < j);
 		SWAP(a[left], a[j], temp);
-		quickSort(a, left, j - 1);
-		quickSort(a, j + 1, right);
+		quick_sort(a, left, j - 1);
+		quick_sort(a, j + 1, right);
 	}
 }
 
-void merge(const int initList[], int mergedList[], int i, int m, int n)
+void merge(const int init_list[], int merged_list[], int i, int m, int n)
 {
-	// pre-condition: initList[i : m], initList[m + 1 : n] are sorted list
-	// post-condition: mergedList[i : n] is sorted list that merged them into
+	// pre-condition: init_list[i : m], init_list[m + 1 : n] are sorted list
+	// post-condition: merged_list[i : n] is sorted list that merged them into
 
 	int j = m + 1;
 	int k = i;
@@ -131,13 +131,13 @@ void merge(const int initList[], int mergedList[], int i, int m, int n)
 
 	while (i <= m && j <= n)
 	{
-		if (initList[i] <= initList[j])
+		if (init_list[i] <= init_list[j])
 		{
-			mergedList[k++] = initList[i++];
+            merged_list[k++] = init_list[i++];
 		}
 		else
 		{
-			mergedList[k++] = initList[j++];
+            merged_list[k++] = init_list[j++];
 		}
 	}
 
@@ -145,41 +145,41 @@ void merge(const int initList[], int mergedList[], int i, int m, int n)
 	{
 		for (t = j; t <= n; ++t)
 		{
-			mergedList[t] = initList[t];
+            merged_list[t] = init_list[t];
 		}
 	}
 	else // second list done earlier
 	{
 		for (t = i; t <= m; ++t)
 		{
-			mergedList[k + t - i] = initList[t];
+            merged_list[k + t - i] = init_list[t];
 		}
 	}
 }
 
-void mergePass(int initList[], int mergedList[], int n, int s)
+void merge_pass(int init_list[], int merged_list[], int n, int s)
 {
 	int i, j;
 
 	for (i = 0; i <= n - 2 * s; i += 2 * s)
 	{
-		merge(initList, mergedList, i, i + s - 1, i + 2 * s - 1);
+		merge(init_list, merged_list, i, i + s - 1, i + 2 * s - 1);
 	}
 
 	if (i + s < n)
 	{
-		merge(initList, mergedList, i, i + s - 1, n - 1);
+		merge(init_list, merged_list, i, i + s - 1, n - 1);
 	}
 	else
 	{
 		for (j = i; j < n; ++j)
 		{
-			mergedList[j] = initList[j];
+            merged_list[j] = init_list[j];
 		}
 	}
 }
 
-void mergeSort(int arr[], int n)
+void merge_sort(int arr[], int n)
 {
 	// post-condition: arr[0 : n - 1] is sorted
 
@@ -191,9 +191,9 @@ void mergeSort(int arr[], int n)
 
 	while (size < n)
 	{
-		mergePass(arr, extra, n, size);
+        merge_pass(arr, extra, n, size);
 		size *= 2;
-		mergePass(extra, arr, n, size);
+        merge_pass(extra, arr, n, size);
 		size *= 2;
 	}
 
@@ -203,7 +203,7 @@ void mergeSort(int arr[], int n)
 void adjust(int a[], int root, int n)
 {
 	int temp = a[root];
-	const int rootKey = a[root];
+	const int root_key = a[root];
 
 	int child = 2 * root;
 	while (child <= n)
@@ -213,7 +213,7 @@ void adjust(int a[], int root, int n)
 			++child;
 		}
 
-		if (rootKey > a[child])
+		if (root_key > a[child])
 		{
 			break;
 		}
@@ -227,7 +227,7 @@ void adjust(int a[], int root, int n)
 	a[child / 2] = temp;
 }
 
-void heapSort(int a[], int n)
+void heap_sort(int a[], int n)
 {
 	int i;
 	int temp;
@@ -244,7 +244,7 @@ void heapSort(int a[], int n)
 	}
 }
 
-node_t *radixSort(node_t *ptr)
+node_t *radix_sort(node_t *ptr)
 {
 	// return the head node of sorted linked list
 
